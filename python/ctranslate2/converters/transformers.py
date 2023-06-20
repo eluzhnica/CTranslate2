@@ -113,7 +113,6 @@ class TransformersConverter(Converter):
             tokenizer = self.load_tokenizer(
                 tokenizer_class,
                 self._model_name_or_path,
-                trust_remote_code=kwargs["trust_remote_code"],
             )
 
             spec = loader(model, tokenizer)
@@ -131,7 +130,7 @@ class TransformersConverter(Converter):
             return spec
 
     def load_model(self, model_class, model_name_or_path, **kwargs):
-        return model_class.from_pretrained(model_name_or_path, **kwargs)
+        return model_class.from_pretrained(model_name_or_path, trust_remote_code=True, **kwargs)
 
     def load_tokenizer(self, tokenizer_class, model_name_or_path, **kwargs):
         return tokenizer_class.from_pretrained(model_name_or_path, **kwargs)
